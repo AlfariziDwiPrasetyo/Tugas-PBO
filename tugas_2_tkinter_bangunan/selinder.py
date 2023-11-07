@@ -4,7 +4,7 @@ from math import pi
 
 app = tk.Tk()
 app.minsize(width=500, height=400)
-app.title("Luas Dan Alas Bangun Kerucut")
+app.title("Luas Dan Alas Bangun Selinder")
 
 
 def hitung():

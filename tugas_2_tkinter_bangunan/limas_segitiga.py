@@ -4,7 +4,7 @@ import tkinter as tk
 
 app = tk.Tk()
 app.minsize(width=500, height=400)
-app.title("Luas Dan Alas Bangun Limas Segiempat")
+app.title("Luas Dan Alas Bangun Limas Segitiga")
 
 
 def hitung():

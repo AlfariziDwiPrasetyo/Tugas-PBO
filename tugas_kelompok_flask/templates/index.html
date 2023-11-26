@@ -4,50 +4,82 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
-  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+  </style>
+  <title>BMR Kalkulator</title>
 </head>
 
-<body>
-  <!-- As a link -->
-  <nav class="navbar border-bottom shadow-md sticky-top">
-    <div class="container-fluid">
-      <a class="navbar-brand fw-bold" href="{{url_for('home')}}">FLASK <span class="text-primary">Perhitungan</span></a>
-    </div>
-  </nav>
+<body class="bg-gray-100 h-screen flex items-center justify-center">
+
+  <div class="bg-white p-8 rounded shadow-md" style="width: 80%;">
+
+    <h2 class="text-2xl font-bold mb-6">BMR Kalkulator</h2>
+
+    <form action="penghitungan" method="post">
 
 
-  <div class="container mt-5 p-auto" style="width: 100%;">
-    <div class="row">
-      <div class="col-sm">
-        <div class="card" style="width: 100%;">
-          <div class="card-body">
-            <h5 class="card-title">Bmi Kalkulator</h5>
-            <p class="card-text">Kalkulator Indeks Massa Tubuh (BMI) membantu Anda menilai apakah berat badan Anda seimbang dengan tinggi badan Anda</p>
-            <a href="{{url_for('bmi')}}" class="btn btn-primary">Buka</a>
+      <div class="grid gap-4 grid-cols-2">
+        <div class="mb-4 flex items-center">
+          <label for="gender" class="block text-gray-700 text-sm font-bold mr-2">Gender</label>
+          <div class="relative">
+            <select id="gender" name="gender" class="w-full px-4 py-2 pr-8 border rounded-md focus:outline-none focus:border-blue-500">
+              <option value="male">Laki Laki</option>
+              <option value="female">Perempuan</option>
+            </select>
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-sm pt-3">
-        <div class="card" style="width: 100%;">
-          <div class="card-body">
-            <h5 class="card-title">Kalkulator Bangun Ruang</h5>
-            <p class="card-text">Kalkulator bangun ruang adalah kalkulator untuk menghitung bangun ruang sesuai input</p>
-            <a href="#" class="btn btn-primary">Buka</a>
+
+        <div class="mb-4 flex items-center">
+          <label for="activity" class="block text-gray-700 text-sm font-bold mr-2">Aktivitas</label>
+          <div class="relative">
+            <select id="activity" name="activity" class="w-full px-4 py-2 pr-8 border rounded-md focus:outline-none focus:border-blue-500">
+              <option value="not-active">Tidak Beraktivitas</option>
+              <option value="lightly-active">Aktivitas Ringan </option>
+              <option value="moderately-active">Aktivitas Sedang </option>
+              <option value="very-active">Aktivitas Berat</option>
+            </select>
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-sm pt-3">
-        <div class="card" style="width: 100%;">
-          <div class="card-body">
-            <h5 class="card-title">Kalkulator Suhu</h5>
-            <p class="card-text">Kalkulator suhu adalah kalkulator untuk mengonversi suhu dari fahrenheit ke celcius dan sebaliknya</p>
-            <a href="#" class="btn btn-primary">Buka</a>
-          </div>
+
+
+        <div class="mb-4">
+          <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Nama</label>
+          <input type="text" id="name" name="name" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500">
         </div>
+
+        <div class="mb-4">
+          <label for="age" class="block text-gray-700 text-sm font-bold mb-2">Umur</label>
+          <input type="number" id="age" name="age" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500">
+        </div>
+
+        <div class="mb-4">
+          <label for="height" class="block text-gray-700 text-sm font-bold mb-2">Tinggi Badan (cm)</label>
+          <input type="number" id="height" name="height" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500">
+        </div>
+
+        <div class="mb-6">
+          <label for="weight" class="block text-gray-700 text-sm font-bold mb-2">Berat Badan (kg)</label>
+          <input type="number" id="weight" name="weight" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500">
+        </div>
+
+        <button type="submit" class="bg-purple-500 text-white px-4 py-2 rounded-md hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple active:bg-purple-800" style="width: 100%;">
+          Kalkulasi BMR
+        </button>
       </div>
-    </div>
+
+    </form>
+
   </div>
 
 </body>

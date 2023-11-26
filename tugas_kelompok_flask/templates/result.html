@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+  </style>
+  <title>BMR Kalkulator</title>
+</head>
+
+<body class="bg-gray-100">
+  <h1 class="text-3xl text-center mt-20">Hasil tes dari <span class="font-bold">{{nama}}</span></h1>
+  <h2 class="text-2xl text-center mt-20">Tingkat Metabolisme Basal Total (BMR)</h2>
+  <h2 class="text-3xl font-bold text-center mt-5 text-purple-500">{{bmr}} Kalori/hari</h2>
+  <h3 class="text-2xl text-center mt-10">Kebutuhan Kalori</h3>
+  <h3 class="text-3xl font-bold text-center mt-5 text-purple-500">{{kalori}} Kcal</h3>
+
+  <div class="m-auto text-center items-center justify-center mt-20">
+    <a href="{{url_for('home')}}"><button class="bg-purple-500 text-white px-4 py-2 rounded-md hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple active:bg-purple-800">
+        Kembali
+      </button></a>
+    <a href="{{url_for('about')}}"> <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
+        Tentang BMR
+      </button></a>
+  </div>
+
+</body>
+
+</html>

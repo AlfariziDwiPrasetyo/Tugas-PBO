@@ -27,7 +27,8 @@ def penghitungan():
     elif gender.lower() == 'female':
         bmr = 10 * float(berat) + 6.25 * float(tinggi) - 5 * float(umur) - 161
     else:
-        raise ValueError("Invalid value for 'gender'. Use 'male' or 'female'.")
+        raise ValueError(
+            "Value tidak valid untuk 'gender'. Use 'male' or 'female'.")
 
     # penghitungan Kebutuhan Kalori
     if aktivitas.lower() == 'not-active':
@@ -39,7 +40,7 @@ def penghitungan():
     elif aktivitas.lower() == 'very-active':
         kalori = bmr * 1.725
     else:
-        raise ValueError("Invalid value for 'activity'")
+        raise ValueError("Value tidak valid untuk 'activity'")
 
     return redirect(url_for("result", nama=nama, bmr=round(bmr, 2), kalori=round(kalori, 2)))
 

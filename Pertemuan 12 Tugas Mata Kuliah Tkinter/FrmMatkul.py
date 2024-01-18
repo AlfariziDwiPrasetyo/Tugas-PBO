@@ -1,9 +1,9 @@
 import tkinter as tk
 from tkinter import Frame, Label, Entry, Button, Radiobutton, ttk, VERTICAL, YES, BOTH, END, Tk, W, StringVar, messagebox
-from Perawat import Perawat
+from MataKuliah import MataKuliah
 
 
-class FormPerawat:
+class FormMatkul:
 
     def __init__(self, parent, title):
         self.parent = parent
@@ -18,29 +18,29 @@ class FormPerawat:
         mainFrame = Frame(self.parent, bd=10)
         mainFrame.pack(fill=BOTH, expand=YES)
 
-        # Label
-        Label(mainFrame, text='NIP:').grid(
+        # KODE MK
+        Label(mainFrame, text='Kode Mk:').grid(
             row=0, column=0, sticky=W, padx=5, pady=5)
-        self.textNIP = Entry(mainFrame)
-        self.textNIP.grid(row=0, column=1, padx=5, pady=5)
-        # menambahkan event Enter key
-        self.textNIP.bind("<Return>", self.onCari)
+        self.textKodeMK = Entry(mainFrame)
+        self.textKodeMK.grid(row=0, column=1, padx=5, pady=5)
 
-        Label(mainFrame, text='Nama:').grid(
+        # NAMA MK
+        Label(mainFrame, text='Nama MK:').grid(
             row=1, column=0, sticky=W, padx=5, pady=5)
         self.txtNama = Entry(mainFrame)
         self.txtNama.grid(row=1, column=1, padx=5, pady=5)
 
-        Label(mainFrame, text='Jenis Kelamin:').grid(
+        # SKS MK
+        Label(mainFrame, text='SKS:').grid(
             row=2, column=0, sticky=W, padx=5, pady=5)
-        self.txtJK = StringVar()
-        self.L = Radiobutton(mainFrame, text='Laki-laki',
-                             value='L', variable=self.txtJK)
-        self.L.grid(row=2, column=1, padx=5, pady=5, sticky=W)
-        self.L.select()  # set pilihan yg pertama
-        self.P = Radiobutton(mainFrame, text='Perempuan',
-                             value='P', variable=self.txtJK)
-        self.P.grid(row=3, column=1, padx=5, pady=5, sticky=W)
+        self.txtSks = StringVar()
+        self.sks2 = Radiobutton(mainFrame, text='2 SKS',
+                                value=2, variable=self.txtSks)
+        self.sks2.grid(row=2, column=1, padx=5, pady=5, sticky=W)
+        self.sks2.select()
+        self.sks3 = Radiobutton(mainFrame, text='3 SKS',
+                                value=3, variable=self.txtSks)
+        self.sks3.grid(row=2, column=2, padx=5, pady=5, sticky=W)
 
         # Button
         self.btnSimpan = Button(mainFrame, text='Simpan',
@@ -54,50 +54,50 @@ class FormPerawat:
         self.btnHapus.grid(row=2, column=3, padx=5, pady=5)
 
         # define columns
-        columns = ('idprwt', 'nip', 'nama', 'jk')
+        columns = ('idmatkul', 'Kode MK', 'nama', 'sks')
 
         self.tree = ttk.Treeview(mainFrame, columns=columns, show='headings')
         # define headings
-        self.tree.heading('idprwt', text='ID')
-        self.tree.column('idprwt', width="30")
-        self.tree.heading('nip', text='NIP')
-        self.tree.column('nip', width="60")
-        self.tree.heading('nama', text='Nama')
+        self.tree.heading('idmatkul', text='ID')
+        self.tree.column('idmatkul', width="30")
+        self.tree.heading('Kode MK', text='Kode MK')
+        self.tree.column('Kode MK', width="60")
+        self.tree.heading('nama', text='Nama MK')
         self.tree.column('nama', width="200")
-        self.tree.heading('jk', text='JK')
-        self.tree.column('jk', width="30")
+        self.tree.heading('sks', text='SKS')
+        self.tree.column('sks', width="30")
         # set tree position
         self.tree.place(x=0, y=200)
         self.onReload()
 
     def onClear(self, event=None):
-        self.textNIP.delete(0, END)
-        self.textNIP.insert(END, "")
+        self.textKodeMK.delete(0, END)
+        self.textKodeMK.insert(END, "")
         self.txtNama.delete(0, END)
         self.txtNama.insert(END, "")
+        self.sks2.select()
         self.btnSimpan.config(text="Simpan")
-        self.L.select()
         self.onReload()
         self.ditemukan = False
 
     def onReload(self, event=None):
-        # get data mahasiswa
-        prwt = Perawat()
-        result = prwt.getAllData()
+        # get data matkul
+        matkul = MataKuliah()
+        result = matkul.getAllData()
         for item in self.tree.get_children():
             self.tree.delete(item)
-        perawat = []
+        matkul = []
         for row_data in result:
-            perawat.append(row_data)
+            matkul.append(row_data)
 
-        for student in perawat:
-            self.tree.insert('', END, values=student)
+        for pwt in matkul:
+            self.tree.insert('', END, values=pwt)
 
     def onCari(self, event=None):
-        nip = self.textNIP.get()
-        prwt = Perawat()
-        res = prwt.getByNIP(nip)
-        rec = prwt.affected
+        kodeMk = self.textKodeMK.get()
+        matkul = MataKuliah()
+        res = matkul.getByKodeMk(kodeMk)
+        rec = matkul.affected
         if (rec > 0):
             messagebox.showinfo("showinfo", "Data Ditemukan")
             # self.TampilkanData()
@@ -108,37 +108,38 @@ class FormPerawat:
         return res
 
     def TampilkanData(self, event=None):
-        nip = self.textNIP.get()
-        prwt = Perawat()
-        res = prwt.getByNIP(nip)
+        kodeMk = self.textKodeMK.get()
+        matkul = MataKuliah()
+        res = matkul.getByKodeMk(kodeMk)
         self.txtNama.delete(0, END)
-        self.txtNama.insert(END, prwt.nama)
-        jk = prwt.jk
-        if (jk == "P"):
-            self.P.select()
+        self.txtNama.insert(END, matkul.mk)
+        sks = matkul.sks
+        if (sks == 2):
+            self.sks2.select()
         else:
-            self.L.select()
+            self.sks3.select()
 
         self.btnSimpan.config(text="Update")
 
     def onSimpan(self, event=None):
-        nip = self.textNIP.get()
+        kodeMk = self.textKodeMK.get()
         nama = self.txtNama.get()
-        jk = self.txtJK.get()
-
+        sks = self.txtSks.get()
         self.onCari()
-        prwt = Perawat()
-        prwt.nip = nip
-        prwt.nama = nama
-        prwt.jk = jk
+        matkul = MataKuliah()
+        matkul.kodemk = kodeMk
+        matkul.mk = nama
+        matkul.sks = sks
+
         if (self.ditemukan == True):
-            res = prwt.updateByNIP(nip)
+            res = matkul.updateByKodeMk(kodeMk)
             ket = 'Diperbarui'
         else:
-            res = prwt.simpan()
+            print("Halo")
+            res = matkul.simpan()
             ket = 'Disimpan'
 
-        rec = prwt.affected
+        rec = matkul.affected
         if (rec > 0):
             messagebox.showinfo("showinfo", "Data Berhasil "+ket)
         else:
@@ -147,13 +148,13 @@ class FormPerawat:
         return rec
 
     def onDelete(self, event=None):
-        nip = self.textNIP.get()
+        kodeMk = self.textKodeMK.get()
         self.onCari()
-        prwt = Perawat()
-        prwt.nip = nip
+        matkul = MataKuliah()
+        matkul.kodemk = kodeMk
         if (self.ditemukan == True):
-            res = prwt.deleteByNIP(nip)
-            rec = prwt.affected
+            res = matkul.deleteByKodeMk(kodeMk)
+            rec = matkul.affected
         else:
             messagebox.showinfo(
                 "showinfo", "Data harus ditemukan dulu sebelum dihapus")
@@ -171,5 +172,5 @@ class FormPerawat:
 
 if __name__ == '__main__':
     root = tk.Tk()
-    aplikasi = FormPerawat(root, "Aplikasi Data Perawat")
+    aplikasi = FormMatkul(root, "Aplikasi Manajemen Mata Kuliah")
     root.mainloop()
